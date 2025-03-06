@@ -44,12 +44,12 @@ namespace ParkingLotApp
 
         public void GetParkingPrice(int lotNumber)
         {
-            if (!_parkedVehicles.ContainsKey(lotNumber))
+            if (!_parkedVehicles.TryGetValue(lotNumber, out var vehicle))
             {
                 Console.WriteLine("Not found");
                 return;
             }
-            var vehicle = _parkedVehicles[lotNumber];
+
             var registrationNumber = vehicle.RegistrationNumber;
             
             var checkInDate = _parkingDates[lotNumber];
@@ -69,6 +69,17 @@ namespace ParkingLotApp
             {
                 Console.WriteLine($"{vehicle.Key}\t\t{vehicle.Value.RegistrationNumber}\t\t{vehicle.Value.VehicleType}\t{vehicle.Value.Color}");
             }
+        }
+
+        public void GetAvailableLotNumber()
+        {
+            var availableLot = _parkingLotSize - _parkedVehicles.Count;
+            Console.WriteLine(availableLot);
+        }
+
+        public void GetOccupiedLotNumber()
+        {
+            Console.WriteLine(_parkedVehicles.Count);
         }
 
         public void GetNumberOfVehiclesByType(string vehicleType)
