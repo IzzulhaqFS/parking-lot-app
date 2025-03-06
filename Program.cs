@@ -30,6 +30,7 @@ namespace ParkingLotApp
                             parkingLot?.AddVehicle(vehicle);
                             break;
                         case "leave":
+                            parkingLot?.GetParkingPrice(int.Parse(command[1]));
                             parkingLot?.RemoveVehicle(int.Parse(command[1]));
                             break;
                         case "status":

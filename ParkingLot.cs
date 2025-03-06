@@ -8,6 +8,8 @@ namespace ParkingLotApp
     {
         private readonly int _parkingLotSize;
         private readonly Dictionary<int, Vehicle> _parkedVehicles = new();
+        private Dictionary<int, DateTime> _parkingDates = new();
+        private readonly int _parkingPrice = 5000;
 
         public ParkingLot(int parkingLotSize)
         {
@@ -24,6 +26,7 @@ namespace ParkingLotApp
             }
             var lotNumber = Enumerable.Range(1, _parkingLotSize).Except(_parkedVehicles.Keys).First();
             _parkedVehicles.Add(lotNumber, vehicle);
+            _parkingDates.Add(lotNumber, DateTime.Now);
             Console.WriteLine($"Allocated slot number: {lotNumber}");
         }
 
@@ -35,7 +38,28 @@ namespace ParkingLotApp
                 return;
             }
             _parkedVehicles.Remove(lotNumber);
+            _parkingDates.Remove(lotNumber);
             Console.WriteLine($"Slot number {lotNumber} is free");
+        }
+
+        public void GetParkingPrice(int lotNumber)
+        {
+            if (!_parkedVehicles.ContainsKey(lotNumber))
+            {
+                Console.WriteLine("Not found");
+                return;
+            }
+            var vehicle = _parkedVehicles[lotNumber];
+            var registrationNumber = vehicle.RegistrationNumber;
+            
+            var checkInDate = _parkingDates[lotNumber];
+            var difference = DateTime.Now - checkInDate;
+            var totalHours = difference.Hours;
+
+            if (totalHours == 0) totalHours = 1;
+            
+            var price = totalHours * _parkingPrice;
+            Console.WriteLine($"Parking price for {registrationNumber}: {price}");
         }
 
         public void GetStatus()
