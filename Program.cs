@@ -3,7 +3,7 @@ using System;
 
 namespace ParkingLotApp
 {
-    class Program
+    internal static class Program
     {
         public static void Main()
         {
@@ -11,11 +11,11 @@ namespace ParkingLotApp
 
             while (true)
             {
-                string? input = Console.ReadLine();
+                var input = Console.ReadLine();
                 if (input == "exit") break;
                 if (input != null)
                 {
-                    string[] command = input.Split(' ');
+                    var command = input.Split(' ');
 
                     switch (command[0])
                     {
