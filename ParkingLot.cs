@@ -8,7 +8,7 @@ namespace ParkingLotApp
     {
         private readonly int _parkingLotSize;
         private readonly Dictionary<int, Vehicle> _parkedVehicles = new();
-        private Dictionary<int, DateTime> _parkingDates = new();
+        private readonly Dictionary<int, DateTime> _parkingDates = new();
         private readonly int _parkingPrice = 5000;
 
         public ParkingLot(int parkingLotSize)
